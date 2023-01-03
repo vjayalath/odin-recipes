@@ -1,0 +1,26 @@
+version: 0.2
+
+phases:
+ pre_build:
+
+  commands:
+   - echo "Pre Build completed.."
+
+ build:
+  
+  commands:
+   - echo "starting the build.."
+   - mkdir build
+   - cp -r /* build
+
+ post_build:
+  
+  commands:
+   - echo "uploading build artifacts to s3"
+   - aws s3 cp ./build s3://odin-recipes/ --recursive
+
+artifacts:
+ type: zip
+ files:
+   - '**/*'
+  
